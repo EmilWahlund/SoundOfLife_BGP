@@ -9,18 +9,18 @@ UCLASS()
 class SOUNDOFLIFE_BGP_API ASensor : public AActor
 {
 	GENERATED_BODY()
-
-public:
+	
+public:	
 	// Sets default values for this actor's properties
 	ASensor();
 	UPROPERTY(EditAnywhere)
-		USphereComponent* detectionSphere;
+	USphereComponent* detectionSphere;
 	UPROPERTY(VisibleAnywhere)
-		TArray<AActor*> victimsWithinProximity;
+	TArray<AActor*> victimsWithinProximity;
 	UPROPERTY(EditAnywhere)
-		UStaticMeshComponent* mesh;
+	UStaticMeshComponent* mesh;
 	UPROPERTY(EditAnywhere)
-		USoundCue* backgroundNoise;
+	USoundCue* backgroundNoise;
 	USceneComponent* audioParent;
 
 protected:
@@ -29,11 +29,11 @@ protected:
 	TArray<TPair<float, USoundCue*>> audioList;
 	TArray<TPair<float, USoundCue*>> GetAudio();
 
-public:
+public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 	UFUNCTION(BlueprintCallable)
-		void PlayAudio(float volume);
+	void PlayAudio(float volume);
 	UFUNCTION(BlueprintCallable)
-		void StopAudio();
+	void StopAudio();
 };
