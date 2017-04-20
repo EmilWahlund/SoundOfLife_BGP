@@ -31,30 +31,6 @@ ASensor::ASensor()
 void ASensor::BeginPlay()
 {
 	Super::BeginPlay();
-
-	TArray<AActor*> overlappingActors;
-	detectionSphere->GetOverlappingActors(overlappingActors, AActor::StaticClass());
-	for (int i = 0; i < overlappingActors.Num(); i++)
-	{
-		if (overlappingActors[i]->IsA(AVictimLocation::StaticClass()))
-		{
-			AVictimLocation* victimLocation = (AVictimLocation*)overlappingActors[i];
-			bool isNew = true;
-			for (int j = 0; j < victimsWithinProximity.Num(); j++)
-			{
-				if (victimLocation == victimsWithinProximity[j])
-				{
-					isNew = false;
-					break;
-				}
-			}
-			if (isNew)
-				victimsWithinProximity.Add(victimLocation);
-		}
-	}
-
-	audioList = GetAudio();
-	PlayAudio(1);
 }
 
 // Called every frame
@@ -82,6 +58,7 @@ TArray<TPair<float, USoundCue*>> ASensor::GetAudio()
 
 void ASensor::PlayAudio(float volume)
 {
+	audioList = GetAudio();
 	for (int i = 0; i < audioList.Num(); i++)
 	{
 		FString string = FString::Printf(TEXT("AudioSource %i"), i);
@@ -100,5 +77,29 @@ void ASensor::StopAudio()
 		UAudioComponent* audioComponent = (UAudioComponent*)audioParent->GetChildComponent(0);
 		audioComponent->Stop();
 		audioComponent->DestroyComponent();
+	}
+}
+
+void ASensor::VictimScan()
+{
+	TArray<AActor*> overlappingActors;
+	detectionSphere->GetOverlappingActors(overlappingActors, AActor::StaticClass());
+	for (int i = 0; i < overlappingActors.Num(); i++)
+	{
+		if (overlappingActors[i]->IsA(AVictimLocation::StaticClass()))
+		{
+			AVictimLocation* victimLocation = (AVictimLocation*)overlappingActors[i];
+			bool isNew = true;
+			for (int j = 0; j < victimsWithinProximity.Num(); j++)
+			{
+				if (victimLocation == victimsWithinProximity[j])
+				{
+					isNew = false;
+					break;
+				}
+			}
+			if (isNew)
+				victimsWithinProximity.Add(victimLocation);
+		}
 	}
 }

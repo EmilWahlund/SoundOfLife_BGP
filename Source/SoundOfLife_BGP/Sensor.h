@@ -19,7 +19,7 @@ public:
 	TArray<AActor*> victimsWithinProximity;
 	UPROPERTY(EditAnywhere)
 	UStaticMeshComponent* mesh;
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	USoundCue* backgroundNoise;
 	USceneComponent* audioParent;
 
@@ -36,4 +36,6 @@ public:
 	void PlayAudio(float volume);
 	UFUNCTION(BlueprintCallable)
 	void StopAudio();
+	UFUNCTION(BlueprintCallable)
+	void VictimScan();
 };
