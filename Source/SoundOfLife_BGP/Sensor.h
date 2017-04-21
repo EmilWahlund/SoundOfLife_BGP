@@ -17,7 +17,7 @@ public:
 	USphereComponent* detectionSphere;
 	UPROPERTY(VisibleAnywhere)
 	TArray<AActor*> victimsWithinProximity;
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	UStaticMeshComponent* mesh;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	USoundCue* backgroundNoise;
