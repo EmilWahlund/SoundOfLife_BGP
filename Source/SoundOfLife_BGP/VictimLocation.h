@@ -13,10 +13,12 @@ class SOUNDOFLIFE_BGP_API AVictimLocation : public AActor
 public:	
 	// Sets default values for this actor's properties
 	AVictimLocation();
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(VisibleAnywhere)
 	USphereComponent* collisionSphere;
+	UPROPERTY(VisibleAnywhere)
+	UAudioComponent* audioComponent;
 	UPROPERTY(EditAnywhere)
-	USoundCue* victimAudio;
+	USoundCue* victimSound;
 	
 
 protected:
@@ -27,5 +29,5 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 	UFUNCTION(BlueprintCallable)
-	USoundCue* GetAudio();
+	void SetVolume(float volume);
 };

@@ -14,8 +14,17 @@ AVictimLocation::AVictimLocation()
 	sphere->InitSphereRadius(50.0f);
 	collisionSphere = sphere;
 
-	USoundCue* audio = CreateDefaultSubobject<USoundCue>(TEXT("VictimAudio"));
-	victimAudio = audio;
+	UAudioComponent* audio = CreateDefaultSubobject<UAudioComponent>(TEXT("VictimAudio"));
+	audio->AttachTo(RootComponent);
+	audioComponent = audio;
+
+	USoundCue* cue = CreateDefaultSubobject<USoundCue>(TEXT("VictimSound"));
+	victimSound = cue;
+	if (victimSound->IsValidLowLevelFast())
+	{
+		audioComponent->SetSound(victimSound);
+	}
+	audioComponent->SetVolumeMultiplier(.0f);
 }
 
 // Called when the game starts or when spawned
@@ -31,8 +40,8 @@ void AVictimLocation::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 }
 
-USoundCue* AVictimLocation::GetAudio()
+void AVictimLocation::SetVolume(float volume)
 {
-	return victimAudio;
+	audioComponent->SetVolumeMultiplier(volume);
 }
 

@@ -13,15 +13,8 @@ class SOUNDOFLIFE_BGP_API ASensor : public AActor
 public:	
 	// Sets default values for this actor's properties
 	ASensor();
-	UPROPERTY(EditAnywhere)
-	USphereComponent* detectionSphere;
-	UPROPERTY(VisibleAnywhere)
-	TArray<AActor*> victimsWithinProximity;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	UStaticMeshComponent* mesh;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	USoundCue* backgroundNoise;
-	USceneComponent* audioParent;
 
 protected:
 	// Called when the game starts or when spawned
@@ -32,10 +25,4 @@ protected:
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
-	UFUNCTION(BlueprintCallable)
-	void PlayAudio(float volume);
-	UFUNCTION(BlueprintCallable)
-	void StopAudio();
-	UFUNCTION(BlueprintCallable)
-	void VictimScan();
 };
