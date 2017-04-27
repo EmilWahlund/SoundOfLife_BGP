@@ -14,7 +14,7 @@ ASensor::ASensor()
 	UStaticMeshComponent* staticMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh"));
 	RootComponent = staticMesh;
 	mesh = staticMesh;
-	static ConstructorHelpers::FObjectFinder<UStaticMesh> staticMeshAsset(TEXT("StaticMesh'/Game/Meshes/StaticMeshes/Sensor_LP'"));
+	static ConstructorHelpers::FObjectFinder<UStaticMesh> staticMeshAsset(TEXT("StaticMesh'/Game/Meshes/StaticMeshes/Sensor_LP_Final'"));
 	if (staticMeshAsset.Succeeded())
 	{
 		staticMesh->SetStaticMesh(staticMeshAsset.Object);
