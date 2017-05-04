@@ -40,11 +40,11 @@ SpectrumData UTabletAudioController::GetSpectrumData(WaveSpectrum waveSelection)
 {
 	SpectrumData data;
 	data.spectrum = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+	data.timeline.Add({ 0, 0 });
 	switch (waveSelection)
 	{
 	case Cough1:
 		data.spectrum = { 0.95f, 1.0f, 0.9f, 0.6f, 0.7f, 0.5f, 0.3f, 0.2f, 0.1f, 0.0f };
-		data.timeline.Add({ 0, 0 });
 		data.timeline.Add({ 0.11f, 0.0f });
 		data.timeline.Add({ 0.12f, 1.0f });
 		data.timeline.Add({ 0.19f, 0.8f });
@@ -102,3 +102,32 @@ SpectrumData UTabletAudioController::GetSpectrumData(WaveSpectrum waveSelection)
 	return data;
 }
 
+TArray<float> UTabletAudioController::GetFullSpectrum(float timeToAdd)
+{
+	TArray<float> spectrum = { FMath::RandRange(.2f, .4f), FMath::RandRange(.2f, .4f), 
+		FMath::RandRange(.2f, .4f), FMath::RandRange(.2f, .4f), FMath::RandRange(.2f, .4f), 
+		FMath::RandRange(.2f, .4f), FMath::RandRange(.2f, .4f), FMath::RandRange(.2f, .35f), 
+		FMath::RandRange(.1f, .35f), FMath::RandRange(.1f, .3f) };
+	for (int i = 0; i < currentSpectrums.Num(); i++)
+	{
+		currentSpectrums[i].time += timeToAdd;
+		float amplitude = 0.0f;
+		for (int k = 0; k < currentSpectrums[i].timeline.Num(); k++)
+		{
+			if (k < currentSpectrums[i].timeline.Num() - 1
+				&& currentSpectrums[i].time >= currentSpectrums[i].timeline[k].timestamp
+				&& currentSpectrums[i].time < currentSpectrums[i].timeline[k + 1].timestamp)
+			{
+				float timeFrame = currentSpectrums[i].timeline[k + 1].timestamp - currentSpectrums[i].timeline[k].timestamp;
+				float timeInFrame = currentSpectrums[i].time - currentSpectrums[i].timeline[k].timestamp;
+				amplitude = FMath::Lerp(currentSpectrums[i].timeline[k].amplitude, currentSpectrums[i].timeline[k + 1].amplitude, timeInFrame / timeFrame);
+				break;
+			}	
+		}
+		for (int j = 0; j < spectrum.Num(); j++)
+		{
+			spectrum[j] = FMath::Max(spectrum[j], currentSpectrums[i].spectrum[j] * amplitude);
+		}
+	}
+	return spectrum;
+}

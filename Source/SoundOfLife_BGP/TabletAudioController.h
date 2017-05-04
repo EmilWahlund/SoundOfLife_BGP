@@ -38,6 +38,7 @@ struct SpectrumData
 {
 	TArray<float> spectrum;
 	TArray<AmplitudeAtTimestamp> timeline;
+	float time = .0f;
 };
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
@@ -60,6 +61,7 @@ public:
 	USoundWave* breathWave;
 	UPROPERTY(VisibleAnywhere)
 	USoundWave* staticNoiseWave;
+	TArray<SpectrumData> currentSpectrums;
 
 
 
@@ -71,4 +73,6 @@ public:
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 	static SpectrumData GetSpectrumData(WaveSpectrum waveSelection);
+	UFUNCTION(BlueprintCallable)
+	TArray<float> GetFullSpectrum(float timeToAdd = .0f);
 };
