@@ -5,6 +5,12 @@
 #include "Components/ActorComponent.h"
 #include "TabletAudioController.generated.h"
 
+struct SpectrumData
+{
+	USoundWave* wave;
+	TArray<float> spectrum;
+	TArray<TPair<float, float>> amplitudeAtTimestamp;
+};
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class SOUNDOFLIFE_BGP_API UTabletAudioController : public UActorComponent
