@@ -5,11 +5,39 @@
 #include "Components/ActorComponent.h"
 #include "TabletAudioController.generated.h"
 
+enum WaveSpectrum
+{
+	Cough1,
+	Cough2,
+	Cough3,
+	Cough4,
+	Cough5,
+	Cough6,
+	Pound1,
+	Pound2,
+	Pound3,
+	Pound4,
+	Pound5,
+	Scratch1,
+	Scratch2,
+	Scratch3
+};
+
+struct AmplitudeAtTimestamp
+{
+	AmplitudeAtTimestamp(float inAmplitude, float inTimestamp)
+	{
+		amplitude = inAmplitude;
+		timestamp = inTimestamp;
+	};
+	float amplitude;
+	float timestamp;
+};
+
 struct SpectrumData
 {
-	USoundWave* wave;
 	TArray<float> spectrum;
-	TArray<TPair<float, float>> amplitudeAtTimestamp;
+	TArray<AmplitudeAtTimestamp> timeline;
 };
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
@@ -42,7 +70,5 @@ protected:
 public:	
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
-
-		
-	
+	static SpectrumData GetSpectrumData(WaveSpectrum waveSelection);
 };
