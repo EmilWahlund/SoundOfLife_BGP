@@ -10,6 +10,7 @@ UTabletAudioController::UTabletAudioController()
 	// Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
 	// off to improve performance if you don't need them.
 	PrimaryComponentTick.bCanEverTick = true;
+
 	/*static ConstructorHelpers::FObjectFinder<USoundWave> sound(TEXT("/Game/Audio/SoundEffects/ljuddesign_sol_-_scratch1_16bit.ljuddesign_sol_-_scratch1_16bit"));
 	if (sound.Succeeded())
 		test = sound.Object;*/
@@ -133,105 +134,5 @@ TArray<float> UTabletAudioController::GetFullSpectrum(float timeToAdd)
 			spectrum[j] = FMath::Max(spectrum[j], currentSpectrums[i].spectrum[j] * amplitude);
 		}
 	}
-	for (int i = 0; i < currentSpectrums.Num(); i++)
-	{
-		if (currentSpectrums[i].timeline.Num() == 0)
-		{
-			currentSpectrums.RemoveAt(i);
-			i--;
-			continue;
-		}
-		if (currentSpectrums[i].time > currentSpectrums[i].timeline.Last().timestamp)
-		{
-			currentSpectrums.RemoveAt(i);
-			i--;
-			continue;
-		}
-	}
 	return spectrum;
-}
-
-USoundWave* UTabletAudioController::FetchAudio(SoundGroup soundGroup)
-{
-	USoundWave* wave = coughWaves[0];
-	WaveSpectrum spectrum = WaveSpectrum::Cough1;
-	int val = 0;;
-	switch (soundGroup)
-	{
-	case SoundGroup::VE_Cough:
-		val = FMath::Rand() % 6;
-		switch (val)
-		{
-		case 0:
-			spectrum = WaveSpectrum::Cough1;
-			break;
-		case 1:
-			spectrum = WaveSpectrum::Cough2;
-			break;
-		case 2:
-			spectrum = WaveSpectrum::Cough3;
-			break;
-		case 3:
-			spectrum = WaveSpectrum::Cough4;
-			break;
-		case 4:
-			spectrum = WaveSpectrum::Cough5;
-			break;
-		case 5:
-			spectrum = WaveSpectrum::Cough6;
-			break;
-		default:
-			break;
-		}
-		currentSpectrums.Add(GetSpectrumData(spectrum));
-		wave = coughWaves[val];
-		break;
-	case SoundGroup::VE_Pound:
-		val = FMath::Rand() % 5;
-		switch (val)
-		{
-		case 0:
-			spectrum = WaveSpectrum::Pound1;
-			break;
-		case 1:
-			spectrum = WaveSpectrum::Pound2;
-			break;
-		case 2:
-			spectrum = WaveSpectrum::Pound3;
-			break;
-		case 3:
-			spectrum = WaveSpectrum::Pound4;
-			break;
-		case 4:
-			spectrum = WaveSpectrum::Pound5;
-			break;
-		default:
-			break;
-		}
-		currentSpectrums.Add(GetSpectrumData(spectrum));
-		wave = poundWaves[val];
-		break;
-	case SoundGroup::VE_Scratch:
-		val = FMath::Rand() % 3;
-		switch (val)
-		{
-		case 0:
-			spectrum = WaveSpectrum::Scratch1;
-			break;
-		case 1:
-			spectrum = WaveSpectrum::Scratch2;
-			break;
-		case 2:
-			spectrum = WaveSpectrum::Scratch3;
-			break;
-		default:
-			break;
-		}
-		currentSpectrums.Add(GetSpectrumData(spectrum));
-		wave = scratchWaves[val];
-		break;
-	default:
-		break;
-	}
-	return wave;
 }
