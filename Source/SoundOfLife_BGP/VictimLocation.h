@@ -2,6 +2,7 @@
 
 #pragma once
 
+#include "TabletAudioController.h"
 #include "GameFramework/Actor.h"
 #include "VictimLocation.generated.h"
 
@@ -17,8 +18,10 @@ public:
 	USphereComponent* collisionSphere;
 	UPROPERTY(VisibleAnywhere)
 	UAudioComponent* audioComponent;
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(VisibleAnywhere)
 	USoundCue* victimSound;
+	UPROPERTY(EditAnywhere)
+	SoundGroup audioSource;
 	
 
 protected:
@@ -30,4 +33,6 @@ public:
 	virtual void Tick(float DeltaTime) override;
 	UFUNCTION(BlueprintCallable)
 	void SetVolume(float volume);
+	UFUNCTION(BlueprintCallable)
+	void SetSoundCue(USoundCue* cue);
 };

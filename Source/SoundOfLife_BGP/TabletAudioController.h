@@ -5,6 +5,14 @@
 #include "Components/ActorComponent.h"
 #include "TabletAudioController.generated.h"
 
+UENUM(BlueprintType)
+enum class SoundGroup : uint8
+{
+	VE_Cough		UMETA(DisplayName = "Cough"),
+	VE_Pound		UMETA(DisplayName = "Pound"),
+	VE_Scratch		UMETA(DisplayName = "Scratch")
+};
+
 enum WaveSpectrum
 {
 	Cough1,
@@ -49,17 +57,17 @@ class SOUNDOFLIFE_BGP_API UTabletAudioController : public UActorComponent
 public:	
 	// Sets default values for this component's properties
 	UTabletAudioController();
-	UPROPERTY(VisibleAnywhere)
+	UPROPERTY(EditDefaultsOnly)
 	TArray<USoundWave*> coughWaves;
-	UPROPERTY(VisibleAnywhere)
+	UPROPERTY(EditDefaultsOnly)
 	TArray<USoundWave*> scratchWaves;
-	UPROPERTY(VisibleAnywhere)
+	UPROPERTY(EditDefaultsOnly)
 	TArray<USoundWave*> poundWaves;
-	UPROPERTY(VisibleAnywhere)
+	UPROPERTY(EditDefaultsOnly)
 	USoundWave* cryWave;
-	UPROPERTY(VisibleAnywhere)
+	UPROPERTY(EditDefaultsOnly)
 	USoundWave* breathWave;
-	UPROPERTY(VisibleAnywhere)
+	UPROPERTY(EditDefaultsOnly)
 	USoundWave* staticNoiseWave;
 	TArray<SpectrumData> currentSpectrums;
 
@@ -75,4 +83,6 @@ public:
 	static SpectrumData GetSpectrumData(WaveSpectrum waveSelection);
 	UFUNCTION(BlueprintCallable)
 	TArray<float> GetFullSpectrum(float timeToAdd = .0f);
+	UFUNCTION(BlueprintCallable)
+	USoundWave* FetchAudio(SoundGroup soundGroup);
 };

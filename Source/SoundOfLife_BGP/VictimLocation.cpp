@@ -17,14 +17,6 @@ AVictimLocation::AVictimLocation()
 	UAudioComponent* audio = CreateDefaultSubobject<UAudioComponent>(TEXT("VictimAudio"));
 	audio->AttachTo(RootComponent);
 	audioComponent = audio;
-
-	USoundCue* cue = CreateDefaultSubobject<USoundCue>(TEXT("VictimSound"));
-	victimSound = cue;
-	if (victimSound->IsValidLowLevelFast())
-	{
-		audioComponent->SetSound(victimSound);
-	}
-	audioComponent->SetVolumeMultiplier(.0f);
 }
 
 // Called when the game starts or when spawned
@@ -45,3 +37,12 @@ void AVictimLocation::SetVolume(float volume)
 	audioComponent->SetVolumeMultiplier(volume);
 }
 
+void AVictimLocation::SetSoundCue(USoundCue* cue)
+{
+	victimSound = cue;
+	if (victimSound->IsValidLowLevelFast())
+	{
+		audioComponent->SetSound(victimSound);
+	}
+	audioComponent->SetVolumeMultiplier(.0f);
+}
