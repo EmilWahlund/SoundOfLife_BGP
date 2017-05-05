@@ -17,9 +17,8 @@ public:
 	USphereComponent* collisionSphere;
 	UPROPERTY(VisibleAnywhere)
 	UAudioComponent* audioComponent;
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(VisibleAnywhere)
 	USoundCue* victimSound;
-	
 
 protected:
 	// Called when the game starts or when spawned
@@ -30,4 +29,6 @@ public:
 	virtual void Tick(float DeltaTime) override;
 	UFUNCTION(BlueprintCallable)
 	void SetVolume(float volume);
+	UFUNCTION(BlueprintCallable)
+	void SetSoundCue(USoundCue* cue);
 };
