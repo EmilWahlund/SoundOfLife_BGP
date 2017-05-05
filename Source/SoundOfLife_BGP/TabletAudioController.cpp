@@ -40,6 +40,7 @@ SpectrumData UTabletAudioController::GetSpectrumData(WaveSpectrum waveSelection)
 	SpectrumData data;
 	data.spectrum = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 	data.timeline.Add({ 0, 0 });
+	
 	switch (waveSelection)
 	{
 	case Cough1:
@@ -111,6 +112,10 @@ TArray<float> UTabletAudioController::GetFullSpectrum(float timeToAdd)
 	{
 		currentSpectrums[i].time += timeToAdd;
 		float amplitude = 0.0f;
+		if (currentSpectrums[i].volume <= .0f)
+		{
+			continue;
+		}
 		for (int k = 0; k < currentSpectrums[i].timeline.Num(); k++)
 		{
 			if (k < currentSpectrums[i].timeline.Num() - 1

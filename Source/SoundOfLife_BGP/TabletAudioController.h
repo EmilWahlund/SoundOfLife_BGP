@@ -47,6 +47,8 @@ struct SpectrumData
 	TArray<float> spectrum;
 	TArray<AmplitudeAtTimestamp> timeline;
 	float time = .0f;
+	float volume = .0f;
+	
 };
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
