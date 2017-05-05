@@ -15,7 +15,7 @@ AVictimLocation::AVictimLocation()
 	collisionSphere = sphere;
 
 	UAudioComponent* audio = CreateDefaultSubobject<UAudioComponent>(TEXT("VictimAudio"));
-	audio->AttachTo(RootComponent);
+	audio->AttachToComponent(RootComponent, FAttachmentTransformRules::KeepRelativeTransform);
 	audioComponent = audio;
 }
 
@@ -37,7 +37,7 @@ void AVictimLocation::SetVolume(float volume)
 	audioComponent->SetVolumeMultiplier(volume);
 }
 
-void AVictimLocation::SetSoundCue(USoundCue* cue);
+void AVictimLocation::SetSoundCue(USoundCue* cue)
 {
 	victimSound = cue;
 	if (victimSound->IsValidLowLevelFast())

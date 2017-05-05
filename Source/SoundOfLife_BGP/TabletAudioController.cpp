@@ -36,9 +36,10 @@ void UTabletAudioController::TickComponent(float DeltaTime, ELevelTick TickType,
 	// ...
 }
 
-SpectrumData UTabletAudioController::GetSpectrumData(WaveSpectrum waveSelection)
+SpectrumData UTabletAudioController::GetSpectrumData(WaveSpectrum waveSelection, AVictimLocation* owner)
 {
 	SpectrumData data;
+	data.owner = owner;
 	data.spectrum = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 	data.timeline.Add({ 0, 0 });
 	
@@ -135,4 +136,100 @@ TArray<float> UTabletAudioController::GetFullSpectrum(float timeToAdd)
 		}
 	}
 	return spectrum;
+}
+
+USoundWave* UTabletAudioController::FetchAudio(SoundGroup soundGroup, AVictimLocation* owner)
+{
+	USoundWave* wave = coughWaves[0];
+	WaveSpectrum spectrum = WaveSpectrum::Cough1;
+	int val = 0;;
+	switch (soundGroup)
+	{
+	case SoundGroup::VE_Cough:
+		val = FMath::Rand() % 6;
+		switch (val)
+		{
+		case 0:
+			spectrum = WaveSpectrum::Cough1;
+			break;
+		case 1:
+			spectrum = WaveSpectrum::Cough2;
+			break;
+		case 2:
+			spectrum = WaveSpectrum::Cough3;
+			break;
+		case 3:
+			spectrum = WaveSpectrum::Cough4;
+			break;
+		case 4:
+			spectrum = WaveSpectrum::Cough5;
+			break;
+		case 5:
+			spectrum = WaveSpectrum::Cough6;
+			break;
+		default:
+			break;
+		}
+		currentSpectrums.Add(GetSpectrumData(spectrum, owner));
+		wave = coughWaves[val];
+		break;
+	case SoundGroup::VE_Pound:
+		val = FMath::Rand() % 5;
+		switch (val)
+		{
+		case 0:
+			spectrum = WaveSpectrum::Pound1;
+			break;
+		case 1:
+			spectrum = WaveSpectrum::Pound2;
+			break;
+		case 2:
+			spectrum = WaveSpectrum::Pound3;
+			break;
+		case 3:
+			spectrum = WaveSpectrum::Pound4;
+			break;
+		case 4:
+			spectrum = WaveSpectrum::Pound5;
+			break;
+		default:
+			break;
+		}
+		currentSpectrums.Add(GetSpectrumData(spectrum, owner));
+		wave = poundWaves[val];
+		break;
+	case SoundGroup::VE_Scratch:
+		val = FMath::Rand() % 3;
+		switch (val)
+		{
+		case 0:
+			spectrum = WaveSpectrum::Scratch1;
+			break;
+		case 1:
+			spectrum = WaveSpectrum::Scratch2;
+			break;
+		case 2:
+			spectrum = WaveSpectrum::Scratch3;
+			break;
+		default:
+			break;
+		}
+		currentSpectrums.Add(GetSpectrumData(spectrum, owner));
+		wave = scratchWaves[val];
+		break;
+	default:
+		break;
+	}
+	return wave;
+}
+
+void UTabletAudioController::SetVolume(AVictimLocation* owner, float volume)
+{
+	for (int i = 0; i < currentSpectrums.Num(); i++)
+	{
+		if (currentSpectrums[i].owner == owner)
+		{
+			currentSpectrums[i].volume = volume;
+		}
+	}
 }

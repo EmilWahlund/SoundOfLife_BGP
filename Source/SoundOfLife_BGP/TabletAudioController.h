@@ -2,8 +2,17 @@
 
 #pragma once
 
+#include "VictimLocation.h"
 #include "Components/ActorComponent.h"
 #include "TabletAudioController.generated.h"
+
+UENUM(BlueprintType)
+enum class SoundGroup : uint8
+{
+	VE_Cough		UMETA(DisplayName = "Cough"),
+	VE_Pound		UMETA(DisplayName = "Pound"),
+	VE_Scratch		UMETA(DisplayName = "Scratch")
+};
 
 enum WaveSpectrum
 {
@@ -40,7 +49,7 @@ struct SpectrumData
 	TArray<AmplitudeAtTimestamp> timeline;
 	float time = .0f;
 	float volume = .0f;
-	
+	AVictimLocation* owner;
 };
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
@@ -74,7 +83,11 @@ protected:
 public:	
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
-	static SpectrumData GetSpectrumData(WaveSpectrum waveSelection);
+	static SpectrumData GetSpectrumData(WaveSpectrum waveSelection, AVictimLocation* owner);
 	UFUNCTION(BlueprintCallable)
 	TArray<float> GetFullSpectrum(float timeToAdd = .0f);
+	UFUNCTION(BlueprintCallable)
+	USoundWave* FetchAudio(SoundGroup soundGroup, AVictimLocation* owner);
+	UFUNCTION(BlueprintCallable)
+	void SetVolume(AVictimLocation* owner, float volume);
 };
