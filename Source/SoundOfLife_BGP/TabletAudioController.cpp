@@ -24,7 +24,16 @@ void UTabletAudioController::BeginPlay()
 	Super::BeginPlay();
 
 	// ...
-	
+	for (int i = 0; i < 10; i++)
+	{
+		noiseSpectrumV0.Add(FMath::FRandRange(noiseMinMax.X, noiseMinMax.Y));
+	}
+	for (int i = 0; i < 10; i++)
+	{
+		noiseSpectrumV1.Add(FMath::FRandRange(noiseMinMax.X, noiseMinMax.Y));
+	}
+	noiseDelay = FMath::FRandRange(noiseDelayRange.X, noiseDelayRange.Y);
+	noiseDelayTime = .0f;
 }
 
 
@@ -41,6 +50,19 @@ void UTabletAudioController::TickComponent(float DeltaTime, ELevelTick TickType,
 			currentSpectrums.RemoveAt(i);
 			i--;
 		}
+	}
+
+	noiseDelayTime += DeltaTime;
+	if (noiseDelayTime >= noiseDelay)
+	{
+		noiseSpectrumV0 = noiseSpectrumV1;
+		noiseSpectrumV1.Empty();
+		for (int i = 0; i < 10; i++)
+		{
+			noiseSpectrumV1.Add(FMath::FRandRange(noiseMinMax.X, noiseMinMax.Y));
+		}
+		noiseDelayTime = .0f;
+		noiseDelay = FMath::FRandRange(noiseDelayRange.X, noiseDelayRange.Y);
 	}
 }
 
@@ -76,21 +98,23 @@ SpectrumData UTabletAudioController::GetSpectrumData(WaveSpectrum waveSelection,
 		data.timeline.Add({ 2.36f, 0.0f });
 		data.timeline.Add({ 2.37f, 0.4f });
 		data.timeline.Add({ 2.39f, 0.3f });
-		data.timeline.Add({ 2.40f, 0.1f });
-		data.timeline.Add({ 2.92f, 0.0f });
+		data.timeline.Add({ 2.40f, 0.0f });
 		break;
 	case Cough2:
 		data.spectrum = { 1.0f, 0.8f, 0.95f, 0.5f, 0.6f, 0.5f, 0.35f, 0.3f, 0.1f, 0.0f };
 		data.timeline.Add({ 0.07f, 0.0f });
-		data.timeline.Add({ 0.08f, 0.6f });
-		data.timeline.Add({ 0.10f, 0.5f });
+		data.timeline.Add({ 0.08f, 0.9f });
+		data.timeline.Add({ 0.10f, 0.7f });
 		data.timeline.Add({ 0.12f, 0.1f });
-		data.timeline.Add({ 0.65f, 0.5f });
-		data.timeline.Add({ 0.68f, 0.4f });
+		data.timeline.Add({ 0.14f, 0.0f });
+		data.timeline.Add({ 0.64f, 0.0f });
+		data.timeline.Add({ 0.65f, 0.8f });
+		data.timeline.Add({ 0.68f, 0.7f });
 		data.timeline.Add({ 0.69f, 0.1f });
+		data.timeline.Add({ 0.70f, 0.0f });
 		data.timeline.Add({ 1.05f, 0.0f });
-		data.timeline.Add({ 1.06f, 0.4f });
-		data.timeline.Add({ 1.08f, 0.5f });
+		data.timeline.Add({ 1.06f, 0.8f });
+		data.timeline.Add({ 1.08f, 1.0f });
 		data.timeline.Add({ 1.09f, 0.0f });
 		break;
 	case Cough3:
@@ -123,8 +147,29 @@ SpectrumData UTabletAudioController::GetSpectrumData(WaveSpectrum waveSelection,
 		data.timeline.Add({ 1.01f, 0.0f });
 		break;
 	case Cough5:
+		data.spectrum = { 0.65f, 1.0f, 0.9f, 0.8f, 0.3f, 0.4f, 0.35f, 0.2f, 0.0f, 0.0f };
+		data.timeline.Add({ 0.11f, 0.0f });
+		data.timeline.Add({ 0.13f, 0.7f });
+		data.timeline.Add({ 0.15f, 0.6f });
+		data.timeline.Add({ 0.34f, 0.1f });
+		data.timeline.Add({ 0.35f, 0.4f });
+		data.timeline.Add({ 0.37f, 0.0f });
+		data.timeline.Add({ 0.74f, 0.0f });
+		data.timeline.Add({ 0.76f, 1.0f });
+		data.timeline.Add({ 0.77f, 0.1f });
+		data.timeline.Add({ 1.12f, 0.0f });
 		break;
 	case Cough6:
+		data.spectrum = { 0.9f, 0.9f, 0.7f, 0.5f, 0.5f, 0.6f, 0.3f, 0.4f, 0.0f, 0.0f };
+		data.timeline.Add({ 0.12f, 0.0f });
+		data.timeline.Add({ 0.14f, 0.8f });
+		data.timeline.Add({ 0.15f, 0.1f });
+		data.timeline.Add({ 0.42f, 0.0f });
+		data.timeline.Add({ 0.44f, 0.6f });
+		data.timeline.Add({ 0.45f, 0.1f });
+		data.timeline.Add({ 0.86f, 0.0f });
+		data.timeline.Add({ 0.87f, 0.6f });
+		data.timeline.Add({ 0.89f, 0.0f });
 		break;
 	case Pound1:
 		break;
@@ -150,7 +195,11 @@ SpectrumData UTabletAudioController::GetSpectrumData(WaveSpectrum waveSelection,
 
 TArray<float> UTabletAudioController::GetFullSpectrum()
 {
-	TArray<float> spectrum = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+	TArray<float> spectrum;
+	for (int i = 0; i < 10; i++)
+	{
+		spectrum.Add(FMath::Lerp(noiseSpectrumV0[i], noiseSpectrumV1[i], noiseDelayTime / noiseDelay));
+	}
 	for (int i = 0; i < currentSpectrums.Num(); i++)
 	{
 		float amplitude = 0.0f;
@@ -173,7 +222,6 @@ TArray<float> UTabletAudioController::GetFullSpectrum()
 			spectrum[j] = FMath::Max(spectrum[j], currentSpectrums[i].spectrum[j] * amplitude * currentSpectrums[i].volume);
 		}
 	}
-	
 	return spectrum;
 }
 

@@ -65,6 +65,18 @@ public:
 	UPROPERTY(EditAnywhere)
 	USoundCue* staticNoiseWave;
 	TArray<SpectrumData> currentSpectrums;
+	UPROPERTY()
+	TArray<float> noiseSpectrumV0;
+	UPROPERTY()
+	TArray<float> noiseSpectrumV1;
+	UPROPERTY(EditAnywhere)
+	FVector2D noiseMinMax = { 0.1f, 0.3f };
+	UPROPERTY(EditAnywhere)
+	FVector2D noiseDelayRange = { 0.05f, 0.1f };
+	UPROPERTY()
+	float noiseDelayTime;
+	UPROPERTY()
+	float noiseDelay;
 
 
 
