@@ -6,14 +6,6 @@
 #include "Components/ActorComponent.h"
 #include "TabletAudioController.generated.h"
 
-UENUM(BlueprintType)
-enum class SoundGroup : uint8
-{
-	VE_Cough		UMETA(DisplayName = "Cough"),
-	VE_Pound		UMETA(DisplayName = "Pound"),
-	VE_Scratch		UMETA(DisplayName = "Scratch")
-};
-
 enum WaveSpectrum
 {
 	Cough1,

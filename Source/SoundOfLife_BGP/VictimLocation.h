@@ -2,6 +2,7 @@
 
 #pragma once
 
+#include "SoundType.h"
 #include "GameFramework/Actor.h"
 #include "VictimLocation.generated.h"
 
@@ -19,6 +20,8 @@ public:
 	UAudioComponent* audioComponent;
 	UPROPERTY(VisibleAnywhere)
 	USoundCue* victimSound;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	SoundGroup soundGroup;
 
 protected:
 	// Called when the game starts or when spawned
