@@ -22,6 +22,8 @@ public:
 	USoundCue* victimSound;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	SoundGroup soundGroup;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	float delayTime = .0f;
 
 protected:
 	// Called when the game starts or when spawned
@@ -33,5 +35,5 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void SetVolume(float volume);
 	UFUNCTION(BlueprintCallable)
-	void SetSoundCue(USoundCue* cue);
+	void SetSoundCue(USoundCue* cue, float postDelay);
 };

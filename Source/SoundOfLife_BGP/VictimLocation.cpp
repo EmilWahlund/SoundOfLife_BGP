@@ -30,6 +30,10 @@ void AVictimLocation::BeginPlay()
 void AVictimLocation::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+	if (!audioComponent->IsPlaying())
+	{
+		delayTime -= DeltaTime;
+	}
 }
 
 void AVictimLocation::SetVolume(float volume)
@@ -37,8 +41,9 @@ void AVictimLocation::SetVolume(float volume)
 	audioComponent->SetVolumeMultiplier(volume);
 }
 
-void AVictimLocation::SetSoundCue(USoundCue* cue)
+void AVictimLocation::SetSoundCue(USoundCue* cue, float postDelay)
 {
+	delayTime = postDelay;
 	victimSound = cue;
 	if (victimSound->IsValidLowLevelFast())
 	{
