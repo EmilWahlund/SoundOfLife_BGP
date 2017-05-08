@@ -11,7 +11,7 @@ UTabletAudioController::UTabletAudioController()
 	// off to improve performance if you don't need them.
 	PrimaryComponentTick.bCanEverTick = true;
 
-	/*static ConstructorHelpers::FObjectFinder<USoundWave> sound(TEXT("/Game/Audio/SoundEffects/ljuddesign_sol_-_scratch1_16bit.ljuddesign_sol_-_scratch1_16bit"));
+	/*static ConstructorHelpers::FObjectFinder<USoundCue> sound(TEXT("/Game/Audio/SoundEffects/ljuddesign_sol_-_scratch1_16bit.ljuddesign_sol_-_scratch1_16bit"));
 	if (sound.Succeeded())
 		test = sound.Object;*/
 	// ...
@@ -33,20 +33,54 @@ void UTabletAudioController::TickComponent(float DeltaTime, ELevelTick TickType,
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
-	// ...
+	for (int i = 0; i < currentSpectrums.Num(); i++)
+	{
+		currentSpectrums[i].time += DeltaTime;
+		if (currentSpectrums[i].time >= currentSpectrums[i].timeline.Last().timestamp)
+		{
+			currentSpectrums.RemoveAt(i);
+			i--;
+		}
+	}
 }
 
 SpectrumData UTabletAudioController::GetSpectrumData(WaveSpectrum waveSelection, AVictimLocation* owner)
 {
 	SpectrumData data;
 	data.owner = owner;
-	data.spectrum = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-	data.timeline.Add({ 0, 0 });
-	
+	//data.spectrum = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+	data.spectrum = { 0.95f, 1.0f, 0.9f, 0.6f, 0.7f, 0.5f, 0.3f, 0.2f, 0.1f, 0.0f };
+	data.timeline.Add({ 0.00f, 0.0f });
+	data.timeline.Add({ 0.11f, 0.0f });
+	data.timeline.Add({ 0.12f, 1.0f });
+	data.timeline.Add({ 0.19f, 0.8f });
+	data.timeline.Add({ 0.61f, 0.1f });
+	data.timeline.Add({ 0.62f, 0.6f });
+	data.timeline.Add({ 0.64f, 0.5f });
+	data.timeline.Add({ 0.65f, 0.1f });
+	data.timeline.Add({ 0.94f, 0.0f });
+	data.timeline.Add({ 0.95f, 0.7f });
+	data.timeline.Add({ 0.98f, 0.6f });
+	data.timeline.Add({ 0.99f, 0.2f });
+	data.timeline.Add({ 1.49f, 0.0f });
+	data.timeline.Add({ 1.50f, 0.5f });
+	data.timeline.Add({ 1.52f, 0.4f });
+	data.timeline.Add({ 1.53f, 0.1f });
+	data.timeline.Add({ 1.96f, 0.0f });
+	data.timeline.Add({ 1.97f, 0.5f });
+	data.timeline.Add({ 1.98f, 0.4f });
+	data.timeline.Add({ 1.99f, 0.1f });
+	data.timeline.Add({ 2.36f, 0.0f });
+	data.timeline.Add({ 2.37f, 0.4f });
+	data.timeline.Add({ 2.39f, 0.3f });
+	data.timeline.Add({ 2.40f, 0.1f });
+	data.timeline.Add({ 2.92f, 0.0f });
+
+
 	switch (waveSelection)
 	{
 	case Cough1:
-		data.spectrum = { 0.95f, 1.0f, 0.9f, 0.6f, 0.7f, 0.5f, 0.3f, 0.2f, 0.1f, 0.0f };
+		/*data.spectrum = { 0.95f, 1.0f, 0.9f, 0.6f, 0.7f, 0.5f, 0.3f, 0.2f, 0.1f, 0.0f };
 		data.timeline.Add({ 0.11f, 0.0f });
 		data.timeline.Add({ 0.12f, 1.0f });
 		data.timeline.Add({ 0.19f, 0.8f });
@@ -70,7 +104,7 @@ SpectrumData UTabletAudioController::GetSpectrumData(WaveSpectrum waveSelection,
 		data.timeline.Add({ 2.37f, 0.4f });
 		data.timeline.Add({ 2.39f, 0.3f });
 		data.timeline.Add({ 2.40f, 0.1f });
-		data.timeline.Add({ 2.92f, 0.0f });
+		data.timeline.Add({ 2.92f, 0.0f });*/
 		break;
 	case Cough2:
 		break;
@@ -104,43 +138,38 @@ SpectrumData UTabletAudioController::GetSpectrumData(WaveSpectrum waveSelection,
 	return data;
 }
 
-TArray<float> UTabletAudioController::GetFullSpectrum(float timeToAdd)
+TArray<float> UTabletAudioController::GetFullSpectrum()
 {
-	TArray<float> spectrum = { FMath::RandRange(.2f, .4f), FMath::RandRange(.2f, .4f), 
-		FMath::RandRange(.2f, .4f), FMath::RandRange(.2f, .4f), FMath::RandRange(.2f, .4f), 
-		FMath::RandRange(.2f, .4f), FMath::RandRange(.2f, .4f), FMath::RandRange(.2f, .35f), 
-		FMath::RandRange(.1f, .35f), FMath::RandRange(.1f, .3f) };
+	TArray<float> spectrum = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 	for (int i = 0; i < currentSpectrums.Num(); i++)
 	{
-		currentSpectrums[i].time += timeToAdd;
 		float amplitude = 0.0f;
 		if (currentSpectrums[i].volume <= .0f)
 		{
 			continue;
 		}
-		for (int k = 0; k < currentSpectrums[i].timeline.Num(); k++)
+		for (int j = 0; j < currentSpectrums[i].timeline.Num(); j++)
 		{
-			if (k < currentSpectrums[i].timeline.Num() - 1
-				&& currentSpectrums[i].time >= currentSpectrums[i].timeline[k].timestamp
-				&& currentSpectrums[i].time < currentSpectrums[i].timeline[k + 1].timestamp)
+			if (j < currentSpectrums[i].timeline.Num() - 1 && currentSpectrums[i].time >= currentSpectrums[i].timeline[j].timestamp && currentSpectrums[i].time < currentSpectrums[i].timeline[j + 1].timestamp)
 			{
-				float timeFrame = currentSpectrums[i].timeline[k + 1].timestamp - currentSpectrums[i].timeline[k].timestamp;
-				float timeInFrame = currentSpectrums[i].time - currentSpectrums[i].timeline[k].timestamp;
-				amplitude = FMath::Lerp(currentSpectrums[i].timeline[k].amplitude, currentSpectrums[i].timeline[k + 1].amplitude, timeInFrame / timeFrame);
+				float timeFrame = currentSpectrums[i].timeline[j + 1].timestamp - currentSpectrums[i].timeline[j].timestamp;
+				float timeInFrame = currentSpectrums[i].time - currentSpectrums[i].timeline[j].timestamp;
+				amplitude = FMath::Lerp(currentSpectrums[i].timeline[j].amplitude, currentSpectrums[i].timeline[j + 1].amplitude, timeInFrame / timeFrame);
 				break;
 			}	
 		}
 		for (int j = 0; j < spectrum.Num(); j++)
 		{
-			spectrum[j] = FMath::Max(spectrum[j], currentSpectrums[i].spectrum[j] * amplitude);
+			spectrum[j] = FMath::Max(spectrum[j], currentSpectrums[i].spectrum[j] * amplitude * currentSpectrums[i].volume);
 		}
 	}
+	
 	return spectrum;
 }
 
-USoundWave* UTabletAudioController::FetchAudio(SoundGroup soundGroup, AVictimLocation* owner)
+USoundCue* UTabletAudioController::FetchAudio(SoundGroup soundGroup, AVictimLocation* owner)
 {
-	USoundWave* wave = coughWaves[0];
+	USoundCue* victimCue = coughWaves[0];
 	WaveSpectrum spectrum = WaveSpectrum::Cough1;
 	int val = 0;;
 	switch (soundGroup)
@@ -171,7 +200,7 @@ USoundWave* UTabletAudioController::FetchAudio(SoundGroup soundGroup, AVictimLoc
 			break;
 		}
 		currentSpectrums.Add(GetSpectrumData(spectrum, owner));
-		wave = coughWaves[val];
+		victimCue = coughWaves[val];
 		break;
 	case SoundGroup::VE_Pound:
 		val = FMath::Rand() % 5;
@@ -196,7 +225,7 @@ USoundWave* UTabletAudioController::FetchAudio(SoundGroup soundGroup, AVictimLoc
 			break;
 		}
 		currentSpectrums.Add(GetSpectrumData(spectrum, owner));
-		wave = poundWaves[val];
+		victimCue = poundWaves[val];
 		break;
 	case SoundGroup::VE_Scratch:
 		val = FMath::Rand() % 3;
@@ -215,12 +244,12 @@ USoundWave* UTabletAudioController::FetchAudio(SoundGroup soundGroup, AVictimLoc
 			break;
 		}
 		currentSpectrums.Add(GetSpectrumData(spectrum, owner));
-		wave = scratchWaves[val];
+		victimCue = scratchWaves[val];
 		break;
 	default:
 		break;
 	}
-	return wave;
+	return victimCue;
 }
 
 void UTabletAudioController::SetVolume(AVictimLocation* owner, float volume)
@@ -231,5 +260,13 @@ void UTabletAudioController::SetVolume(AVictimLocation* owner, float volume)
 		{
 			currentSpectrums[i].volume = volume;
 		}
+	}
+}
+
+void UTabletAudioController::ClearSpectrum()
+{
+	while (currentSpectrums.Num() != 0)
+	{
+		currentSpectrums.RemoveAt(0);
 	}
 }

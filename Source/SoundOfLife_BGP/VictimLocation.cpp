@@ -49,6 +49,7 @@ void AVictimLocation::SetSoundCue(USoundCue* cue, float postDelay)
 	{
 		audioComponent->SetSound(victimSound);
 	}
+	audioComponent->Play();
 	audioComponent->SetVolumeMultiplier(.0f);
 }
 
