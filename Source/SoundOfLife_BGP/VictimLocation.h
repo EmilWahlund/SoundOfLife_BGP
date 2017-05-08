@@ -16,10 +16,8 @@ public:
 	AVictimLocation();
 	UPROPERTY(VisibleAnywhere)
 	USphereComponent* collisionSphere;
-	UPROPERTY(VisibleAnywhere)
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
 	UAudioComponent* audioComponent;
-	UPROPERTY(VisibleAnywhere)
-	USoundCue* victimSound;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	SoundGroup soundGroup;
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)

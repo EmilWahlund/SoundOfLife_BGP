@@ -84,4 +84,6 @@ public:
 	void SetVolume(AVictimLocation* owner, float volume);
 	UFUNCTION(BlueprintCallable)
 	void ClearSpectrum();
+	UFUNCTION(BlueprintCallable)
+	void RemoveFromSpectrum(AVictimLocation* owner);
 };

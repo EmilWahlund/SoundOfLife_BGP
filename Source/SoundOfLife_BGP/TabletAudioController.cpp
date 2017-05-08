@@ -48,39 +48,12 @@ SpectrumData UTabletAudioController::GetSpectrumData(WaveSpectrum waveSelection,
 {
 	SpectrumData data;
 	data.owner = owner;
-	//data.spectrum = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-	data.spectrum = { 0.95f, 1.0f, 0.9f, 0.6f, 0.7f, 0.5f, 0.3f, 0.2f, 0.1f, 0.0f };
-	data.timeline.Add({ 0.00f, 0.0f });
-	data.timeline.Add({ 0.11f, 0.0f });
-	data.timeline.Add({ 0.12f, 1.0f });
-	data.timeline.Add({ 0.19f, 0.8f });
-	data.timeline.Add({ 0.61f, 0.1f });
-	data.timeline.Add({ 0.62f, 0.6f });
-	data.timeline.Add({ 0.64f, 0.5f });
-	data.timeline.Add({ 0.65f, 0.1f });
-	data.timeline.Add({ 0.94f, 0.0f });
-	data.timeline.Add({ 0.95f, 0.7f });
-	data.timeline.Add({ 0.98f, 0.6f });
-	data.timeline.Add({ 0.99f, 0.2f });
-	data.timeline.Add({ 1.49f, 0.0f });
-	data.timeline.Add({ 1.50f, 0.5f });
-	data.timeline.Add({ 1.52f, 0.4f });
-	data.timeline.Add({ 1.53f, 0.1f });
-	data.timeline.Add({ 1.96f, 0.0f });
-	data.timeline.Add({ 1.97f, 0.5f });
-	data.timeline.Add({ 1.98f, 0.4f });
-	data.timeline.Add({ 1.99f, 0.1f });
-	data.timeline.Add({ 2.36f, 0.0f });
-	data.timeline.Add({ 2.37f, 0.4f });
-	data.timeline.Add({ 2.39f, 0.3f });
-	data.timeline.Add({ 2.40f, 0.1f });
-	data.timeline.Add({ 2.92f, 0.0f });
-
-
+	data.spectrum = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+	data.timeline.Add({ 0.0f, 0.0f });
 	switch (waveSelection)
 	{
 	case Cough1:
-		/*data.spectrum = { 0.95f, 1.0f, 0.9f, 0.6f, 0.7f, 0.5f, 0.3f, 0.2f, 0.1f, 0.0f };
+		data.spectrum = { 0.95f, 1.0f, 0.9f, 0.6f, 0.7f, 0.5f, 0.3f, 0.2f, 0.1f, 0.0f };
 		data.timeline.Add({ 0.11f, 0.0f });
 		data.timeline.Add({ 0.12f, 1.0f });
 		data.timeline.Add({ 0.19f, 0.8f });
@@ -104,13 +77,50 @@ SpectrumData UTabletAudioController::GetSpectrumData(WaveSpectrum waveSelection,
 		data.timeline.Add({ 2.37f, 0.4f });
 		data.timeline.Add({ 2.39f, 0.3f });
 		data.timeline.Add({ 2.40f, 0.1f });
-		data.timeline.Add({ 2.92f, 0.0f });*/
+		data.timeline.Add({ 2.92f, 0.0f });
 		break;
 	case Cough2:
+		data.spectrum = { 1.0f, 0.8f, 0.95f, 0.5f, 0.6f, 0.5f, 0.35f, 0.3f, 0.1f, 0.0f };
+		data.timeline.Add({ 0.07f, 0.0f });
+		data.timeline.Add({ 0.08f, 0.6f });
+		data.timeline.Add({ 0.10f, 0.5f });
+		data.timeline.Add({ 0.12f, 0.1f });
+		data.timeline.Add({ 0.65f, 0.5f });
+		data.timeline.Add({ 0.68f, 0.4f });
+		data.timeline.Add({ 0.69f, 0.1f });
+		data.timeline.Add({ 1.05f, 0.0f });
+		data.timeline.Add({ 1.06f, 0.4f });
+		data.timeline.Add({ 1.08f, 0.5f });
+		data.timeline.Add({ 1.09f, 0.0f });
 		break;
 	case Cough3:
+		data.spectrum = { 0.9f, 1.0f, 0.85f, 0.7f, 0.5f, 0.6f, 0.7f, 0.4f, 0.2f, 0.1f };
+		data.timeline.Add({ 0.14f, 0.0f });
+		data.timeline.Add({ 0.16f, 1.0f });
+		data.timeline.Add({ 0.19f, 0.3f });
+		data.timeline.Add({ 0.51f, 0.1f });
+		data.timeline.Add({ 0.52f, 0.2f });
+		data.timeline.Add({ 0.54f, 0.0f });
+		data.timeline.Add({ 0.89f, 0.0f });
+		data.timeline.Add({ 0.91f, 0.8f });
+		data.timeline.Add({ 0.93f, 0.2f });
+		data.timeline.Add({ 1.29f, 0.0f });
+		data.timeline.Add({ 1.30f, 0.5f });
+		data.timeline.Add({ 1.32f, 0.1f });
+		data.timeline.Add({ 1.59f, 0.0f });
 		break;
 	case Cough4:
+		data.spectrum = { 0.7f, 1.0f, 0.9f, 0.6f, 0.7f, 0.55f, 0.45f, 0.4f, 0.2f, 0.0f };
+		data.timeline.Add({ 0.12f, 0.0f });
+		data.timeline.Add({ 0.15f, 1.0f });
+		data.timeline.Add({ 0.19f, 0.4f });
+		data.timeline.Add({ 0.33f, 0.1f });
+		data.timeline.Add({ 0.36f, 0.3f });
+		data.timeline.Add({ 0.38f, 0.0f });
+		data.timeline.Add({ 0.76f, 0.0f });
+		data.timeline.Add({ 0.78f, 1.0f });
+		data.timeline.Add({ 0.80f, 0.2f });
+		data.timeline.Add({ 1.01f, 0.0f });
 		break;
 	case Cough5:
 		break;
@@ -268,5 +278,17 @@ void UTabletAudioController::ClearSpectrum()
 	while (currentSpectrums.Num() != 0)
 	{
 		currentSpectrums.RemoveAt(0);
+	}
+}
+
+void UTabletAudioController::RemoveFromSpectrum(AVictimLocation* owner)
+{
+	for (int i = 0; i < currentSpectrums.Num(); i++)
+	{
+		if (currentSpectrums[i].owner == owner)
+		{
+			currentSpectrums.RemoveAt(i);
+			i--;
+		}
 	}
 }
