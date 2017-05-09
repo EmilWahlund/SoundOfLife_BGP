@@ -172,14 +172,39 @@ SpectrumData UTabletAudioController::GetSpectrumData(WaveSpectrum waveSelection,
 		data.timeline.Add({ 0.89f, 0.0f });
 		break;
 	case Pound1:
+		data.spectrum = { 1.0f, 0.9f, 0.8f, 0.7f, 0.65f, 0.6f, 0.4f, 0.3f, 0.1f, 0.0f };
+		data.timeline.Add({ 0.02f, 0.0f });
+		data.timeline.Add({ 0.03f, 1.0f });
+		data.timeline.Add({ 0.51f, 0.0f });
 		break;
 	case Pound2:
+		data.spectrum = { 1.0f, 0.75f, 0.9f, 0.7f, 0.6f, 0.55f, 0.35f, 0.3f, 0.2f, 0.1f };
+		data.timeline.Add({ 0.02f, 0.0f });
+		data.timeline.Add({ 0.03f, 1.0f });
+		data.timeline.Add({ 0.60f, 0.0f });
+		data.timeline.Add({ 0.61f, 0.0f });
+		data.timeline.Add({ 0.61f, 0.4f });
+		data.timeline.Add({ 0.99f, 0.0f });
 		break;
 	case Pound3:
+		data.spectrum = { 0.9f, 0.7f, 0.5f, 0.6f, 0.6f, 0.4f, 0.25f, 0.3f, 0.1f, 0.0f };
+		data.timeline.Add({ 0.02f, 0.0f });
+		data.timeline.Add({ 0.03f, 0.7f });
+		data.timeline.Add({ 0.60f, 0.0f });
+		data.timeline.Add({ 0.61f, 0.7f });
+		data.timeline.Add({ 0.99f, 0.0f });
 		break;
 	case Pound4:
+		data.spectrum = { 1.0f, 0.9f, 0.6f, 0.7f, 0.5f, 0.6f, 0.3f, 0.4f, 0.2f, 0.1f };
+		data.timeline.Add({ 0.04f, 0.0f });
+		data.timeline.Add({ 0.05f, 0.8f });
+		data.timeline.Add({ 0.84f, 0.0f });
 		break;
 	case Pound5:
+		data.spectrum = { 0.9f, 0.7f, 0.6f, 0.2f, 0.5f, 0.5f, 0.4f, 0.1f, 0.2f, 0.0f };
+		data.timeline.Add({ 0.04f, 0.0f });
+		data.timeline.Add({ 0.05f, 1.0f });
+		data.timeline.Add({ 0.35f, 0.0f });
 		break;
 	case Scratch1:
 		break;
