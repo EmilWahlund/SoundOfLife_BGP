@@ -207,10 +207,24 @@ SpectrumData UTabletAudioController::GetSpectrumData(WaveSpectrum waveSelection,
 		data.timeline.Add({ 0.35f, 0.0f });
 		break;
 	case Scratch1:
+		data.spectrum = { 1.0f, 0.9f, 0.95f, 0.85f, 0.8f, 0.7f, 0.65f, 0.6f, 0.5f, 0.4f };
+		data.timeline.Add({ 0.06f, 0.0f });
+		data.timeline.Add({ 0.27f, 0.8f });
+		data.timeline.Add({ 0.42f, 0.0f });
+		data.timeline.Add({ 0.57f, 0.0f });
+		data.timeline.Add({ 0.64f, 0.7f });
+		data.timeline.Add({ 0.69f, 0.7f });
+		data.timeline.Add({ 0.82f, 0.0f });
 		break;
 	case Scratch2:
+		data.spectrum = { 0.8f, 1.0f, 0.8f, 0.75f, 0.8f, 0.7f, 0.5f, 0.4f, 0.35f, 0.0f };
+		data.timeline.Add({ 0.15f, 0.6f });
+		data.timeline.Add({ 0.26f, 0.0f });
 		break;
 	case Scratch3:
+		data.spectrum = { 1.0f, 0.8f, 0.8f, 0.9f, 0.7f, 0.6f, 0.55f, 0.4f, 0.4f, 0.35f };
+		data.timeline.Add({ 0.32f, 0.5f });
+		data.timeline.Add({ 0.55f, 0.0f });
 		break;
 	default:
 		break;
