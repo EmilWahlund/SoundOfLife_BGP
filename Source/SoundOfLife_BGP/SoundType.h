@@ -7,5 +7,7 @@ enum class SoundGroup : uint8
 {
 	VE_Cough		UMETA(DisplayName = "Cough"),
 	VE_Pound		UMETA(DisplayName = "Pound"),
-	VE_Scratch		UMETA(DisplayName = "Scratch")
+	VE_Scratch		UMETA(DisplayName = "Scratch"),
+	VE_Breath		UMETA(DisplayName = "Breath"),
+	VE_Cry			UMETA(DisplayName = "Cry")
 };

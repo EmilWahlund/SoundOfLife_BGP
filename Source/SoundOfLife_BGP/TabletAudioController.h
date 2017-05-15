@@ -21,7 +21,9 @@ enum WaveSpectrum
 	Pound5,
 	Scratch1,
 	Scratch2,
-	Scratch3
+	Scratch3,
+	Breath,
+	Cry
 };
 
 struct AmplitudeAtTimestamp
