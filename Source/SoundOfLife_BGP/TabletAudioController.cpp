@@ -271,7 +271,7 @@ SpectrumData UTabletAudioController::GetSpectrumData(WaveSpectrum waveSelection,
 	case Cry:
 		data.spectrum = { 0.9f, 0.7f, 0.75f, 0.6f, 0.7f, 0.5f, 0.4f, 0.35f, 0.2f, 0.0f };
 		data.timeline.Add({ 0.15f, 0.0f });
-		data.timeline.Add({ 0.16f, 4.0f });
+		data.timeline.Add({ 0.16f, 0.4f });
 		data.timeline.Add({ 0.57f, 0.1f });
 		data.timeline.Add({ 0.72f, 0.0f });
 		data.timeline.Add({ 0.73f, 0.5f });
@@ -383,10 +383,7 @@ SpectrumData UTabletAudioController::GetSpectrumData(WaveSpectrum waveSelection,
 TArray<float> UTabletAudioController::GetFullSpectrum()
 {
 	TArray<float> spectrum;
-	for (int i = 0; i < 10; i++)
-	{
-		spectrum.Add(FMath::Lerp(noiseSpectrumV0[i], noiseSpectrumV1[i], noiseDelayTime / noiseDelay));
-	}
+	spectrum.Init(.0f, 10);
 	for (int i = 0; i < currentSpectrums.Num(); i++)
 	{
 		float amplitude = 0.0f;
@@ -408,6 +405,10 @@ TArray<float> UTabletAudioController::GetFullSpectrum()
 		{
 			spectrum[j] = FMath::Max(spectrum[j], currentSpectrums[i].spectrum[j] * amplitude * currentSpectrums[i].volume);
 		}
+	}
+	for (int i = 0; i < 10; i++)
+	{
+		spectrum[i] += FMath::Lerp(noiseSpectrumV0[i], noiseSpectrumV1[i], noiseDelayTime / noiseDelay);
 	}
 	return spectrum;
 }
@@ -444,7 +445,6 @@ USoundCue* UTabletAudioController::FetchAudio(SoundGroup soundGroup, AVictimLoca
 		default:
 			break;
 		}
-		currentSpectrums.Add(GetSpectrumData(spectrum, owner));
 		victimCue = coughWaves[val];
 		break;
 	case SoundGroup::VE_Pound:
@@ -469,7 +469,6 @@ USoundCue* UTabletAudioController::FetchAudio(SoundGroup soundGroup, AVictimLoca
 		default:
 			break;
 		}
-		currentSpectrums.Add(GetSpectrumData(spectrum, owner));
 		victimCue = poundWaves[val];
 		break;
 	case SoundGroup::VE_Scratch:
@@ -488,7 +487,6 @@ USoundCue* UTabletAudioController::FetchAudio(SoundGroup soundGroup, AVictimLoca
 		default:
 			break;
 		}
-		currentSpectrums.Add(GetSpectrumData(spectrum, owner));
 		victimCue = scratchWaves[val];
 		break;
 	case SoundGroup::VE_Breath:
@@ -502,6 +500,7 @@ USoundCue* UTabletAudioController::FetchAudio(SoundGroup soundGroup, AVictimLoca
 	default:
 		break;
 	}
+	currentSpectrums.Add(GetSpectrumData(spectrum, owner));
 	return victimCue;
 }
 
