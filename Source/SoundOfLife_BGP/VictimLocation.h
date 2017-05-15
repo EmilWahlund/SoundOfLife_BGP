@@ -20,6 +20,8 @@ public:
 	UAudioComponent* audioComponent;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	SoundGroup soundGroup;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	Survivor survivor;
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	float delayTime = .0f;
 
