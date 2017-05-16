@@ -233,7 +233,8 @@ SpectrumData UTabletAudioController::GetSpectrumData(WaveSpectrum waveSelection,
 		data.timeline.Add({ 1.82f, 0.1f });
 		data.timeline.Add({ 2.22f, 0.9f });
 		data.timeline.Add({ 2.46f, 0.2f });
-		data.timeline.Add({ 3.67f, 0.8f });
+		data.timeline.Add({ 3.67f, 0.2f });
+		data.timeline.Add({ 4.05f, 0.8f });
 		data.timeline.Add({ 4.33f, 0.1f });
 		data.timeline.Add({ 5.00f, 0.3f });
 		data.timeline.Add({ 5.56f, 0.0f });
