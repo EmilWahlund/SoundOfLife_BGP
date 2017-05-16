@@ -23,7 +23,11 @@ enum WaveSpectrum
 	Scratch2,
 	Scratch3,
 	Breath,
-	Cry
+	Cry,
+	Pipes1,
+	Pipes2,
+	Pipes3,
+	Pipes4
 };
 
 struct AmplitudeAtTimestamp
@@ -65,7 +69,7 @@ public:
 	UPROPERTY(EditAnywhere)
 	USoundCue* breathWave;
 	UPROPERTY(EditAnywhere)
-	USoundCue* staticNoiseWave;
+	TArray<USoundCue*> pipeWaves;
 	TArray<SpectrumData> currentSpectrums;
 	UPROPERTY()
 	TArray<float> noiseSpectrumV0;

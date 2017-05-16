@@ -374,6 +374,46 @@ SpectrumData UTabletAudioController::GetSpectrumData(WaveSpectrum waveSelection,
 		data.timeline.Add({ 17.58f, 0.8f });
 		data.timeline.Add({ 17.59f, 0.0f });
 		break;
+	case Pipes1:
+		data.spectrum = { 1.0f, 0.4f, 0.35f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f };
+		data.timeline.Add({ 0.06f, 0.0f });
+		data.timeline.Add({ 0.20f, 1.0f });
+		data.timeline.Add({ 0.25f, 0.8f });
+		data.timeline.Add({ 0.28f, 0.9f });
+		data.timeline.Add({ 0.44f, 0.2f });
+		data.timeline.Add({ 0.60f, 0.2f });
+		data.timeline.Add({ 0.67f, 0.3f });
+		data.timeline.Add({ 0.83f, 0.2f });
+		data.timeline.Add({ 3.10f, 0.0f });
+		break;
+	case Pipes2:
+		data.spectrum = { 1.0f, 0.2f, 0.4f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f };
+		data.timeline.Add({ 0.03f, 0.0f });
+		data.timeline.Add({ 0.18f, 0.5f });
+		data.timeline.Add({ 0.26f, 1.0f });
+		data.timeline.Add({ 0.47f, 0.8f });
+		data.timeline.Add({ 0.73f, 0.4f });
+		data.timeline.Add({ 1.57f, 0.1f });
+		data.timeline.Add({ 2.47f, 0.2f });
+		data.timeline.Add({ 4.71f, 0.0f });
+		break;
+	case Pipes3:
+		data.spectrum = { 1.0f, 0.4f, 0.1f, 0.0f, 0.3f, 0.0f, 0.2f, 0.0f, 0.0f, 0.0f };
+		data.timeline.Add({ 0.05f, 0.0f });
+		data.timeline.Add({ 0.14f, 0.9f });
+		data.timeline.Add({ 0.22f, 0.5f });
+		data.timeline.Add({ 0.39f, 0.3f });
+		data.timeline.Add({ 0.47f, 0.4f });
+		data.timeline.Add({ 2.90f, 0.0f });
+		break;
+	case Pipes4:
+		data.spectrum = { 1.0f, 0.8f, 0.1f, 0.2f, 0.0f, 0.3f, 0.0f, 0.0f, 0.0f, 0.0f };
+		data.timeline.Add({ 0.05f, 0.0f });
+		data.timeline.Add({ 0.16f, 0.8f });
+		data.timeline.Add({ 0.26f, 0.5f });
+		data.timeline.Add({ 0.45f, 0.4f });
+		data.timeline.Add({ 3.85f, 0.0f });
+		break;
 	default:
 		break;
 	};
@@ -496,6 +536,27 @@ USoundCue* UTabletAudioController::FetchAudio(SoundGroup soundGroup, AVictimLoca
 	case SoundGroup::VE_Cry:
 		spectrum = WaveSpectrum::Cry;
 		victimCue = cryWave;
+		break;
+	case SoundGroup::VE_Pipes:
+		val = FMath::Rand() % 4;
+		switch (val)
+		{
+		case 0:
+			spectrum = WaveSpectrum::Pipes1;
+			break;
+		case 1:
+			spectrum = WaveSpectrum::Pipes2;
+			break;
+		case 2:
+			spectrum = WaveSpectrum::Pipes3;
+			break;
+		case 3:
+			spectrum = WaveSpectrum::Pipes4;
+			break;
+		default:
+			break;
+		}
+		victimCue = pipeWaves[val];
 		break;
 	default:
 		break;
