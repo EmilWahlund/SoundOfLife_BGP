@@ -18,6 +18,7 @@ ASensor::ASensor()
 	if (staticMeshAsset.Succeeded())
 	{
 		staticMesh->SetStaticMesh(staticMeshAsset.Object);
+		mesh->bReceivesDecals = 0;
 	}
 }
 
