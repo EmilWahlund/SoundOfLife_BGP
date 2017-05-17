@@ -415,6 +415,27 @@ SpectrumData UTabletAudioController::GetSpectrumData(WaveSpectrum waveSelection,
 		data.timeline.Add({ 0.45f, 0.4f });
 		data.timeline.Add({ 3.85f, 0.0f });
 		break;
+	case Waves:
+		data.spectrum = { 1.0f, 0.8f, 0.2f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f };
+		data.timeline.Add({ 0.21f, 0.0f });
+		data.timeline.Add({ 0.38f, 0.3f });
+		data.timeline.Add({ 0.39f, 0.5f });
+		data.timeline.Add({ 0.79f, 0.4f });
+		data.timeline.Add({ 1.02f, 0.9f });
+		data.timeline.Add({ 1.37f, 0.5f });
+		data.timeline.Add({ 1.60f, 0.6f });
+		data.timeline.Add({ 1.61f, 0.4f });
+		data.timeline.Add({ 3.71f, 0.3f });
+		data.timeline.Add({ 4.00f, 0.3f });
+		data.timeline.Add({ 4.26f, 0.9f });
+		data.timeline.Add({ 4.86f, 0.3f });
+		data.timeline.Add({ 5.16f, 0.6f });
+		data.timeline.Add({ 5.53f, 0.3f });
+		data.timeline.Add({ 5.73f, 0.4f });
+		data.timeline.Add({ 6.21f, 0.2f });
+		data.timeline.Add({ 6.46f, 0.3f });
+		data.timeline.Add({ 12.85f, 0.0f });
+		break;
 	default:
 		break;
 	};
@@ -458,7 +479,7 @@ USoundCue* UTabletAudioController::FetchAudio(SoundGroup soundGroup, AVictimLoca
 {
 	USoundCue* victimCue = coughWaves[0];
 	WaveSpectrum spectrum = WaveSpectrum::Cough1;
-	int val = 0;;
+	int val = 0;
 	switch (soundGroup)
 	{
 	case SoundGroup::VE_Cough:
@@ -558,6 +579,10 @@ USoundCue* UTabletAudioController::FetchAudio(SoundGroup soundGroup, AVictimLoca
 			break;
 		}
 		victimCue = pipeWaves[val];
+		break;
+	case SoundGroup::VE_Waves:
+		spectrum = WaveSpectrum::Waves;
+		victimCue = wavesWaves;
 		break;
 	default:
 		break;
