@@ -10,7 +10,8 @@ enum class SoundGroup : uint8
 	VE_Scratch		UMETA(DisplayName = "Scratch"),
 	VE_Breath		UMETA(DisplayName = "Breath"),
 	VE_Cry			UMETA(DisplayName = "Cry"),
-	VE_Pipes		UMETA(DisplayName = "Pipes")
+	VE_Pipes		UMETA(DisplayName = "Pipes"),
+	VE_Waves		UMETA(DisplayName = "Waves")
 };
 
 UENUM(BlueprintType)

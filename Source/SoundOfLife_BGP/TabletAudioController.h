@@ -27,7 +27,8 @@ enum WaveSpectrum
 	Pipes1,
 	Pipes2,
 	Pipes3,
-	Pipes4
+	Pipes4,
+	Waves
 };
 
 struct AmplitudeAtTimestamp
@@ -70,6 +71,8 @@ public:
 	USoundCue* breathWave;
 	UPROPERTY(EditAnywhere)
 	TArray<USoundCue*> pipeWaves;
+	UPROPERTY(EditAnywhere)
+	USoundCue* wavesWaves;
 	TArray<SpectrumData> currentSpectrums;
 	UPROPERTY()
 	TArray<float> noiseSpectrumV0;
